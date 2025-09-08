@@ -38,3 +38,4 @@ scenario.json
 .env
 system_prompt.json
 preset.json
+**/*.pyc
