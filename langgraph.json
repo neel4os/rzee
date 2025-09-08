@@ -1,6 +1,6 @@
 {
     "graphs": {
-        "rzee": "./agent.py:graph"
+        "rzee": "./agent/agent.py:graph"
     },
     "dependencies": [
         "."

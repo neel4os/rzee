@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
-from agent import graph
+from agent.agent import graph
 from dotenv import load_dotenv
 
 

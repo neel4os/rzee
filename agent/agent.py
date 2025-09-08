@@ -58,8 +58,12 @@ def create_kobold_client():
     return ChatOpenAI(
         base_url=Kobold_url,
         api_key="does not matter",
-        max_completion_tokens=30,
-        model_kwargs=preset,
+        max_completion_tokens=preset["max_tokens"],
+        frequency_penalty=preset["frequency_penalty"],
+        temperature=preset["temperature"],
+        top_p=preset["top_p"],
+        presence_penalty=preset.get("presence_penalty", 0),
+        n=1,
     )
 
 
