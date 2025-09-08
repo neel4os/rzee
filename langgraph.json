@@ -1,0 +1,8 @@
+{
+    "graphs": {
+        "rzee": "./agent.py:graph"
+    },
+    "dependencies": [
+        "."
+    ]
+}
