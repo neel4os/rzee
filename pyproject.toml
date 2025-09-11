@@ -5,6 +5,7 @@ requires-python = ">=3.13"
 dependencies = [
     "blockbuster>=1.5.25",
     "fastapi>=0.116.1",
+    "langchain>=0.3.27",
     "langchain-openai>=0.3.32",
     "langgraph>=0.6.6",
     "langgraph-checkpoint-sqlite>=2.0.11",

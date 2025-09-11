@@ -39,3 +39,5 @@ scenario.json
 system_prompt.json
 preset.json
 **/*.pyc
+chores.json
+white_list_user.json

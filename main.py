@@ -6,7 +6,7 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
 from agent.agent import graph
 from dotenv import load_dotenv
-
+import json
 
 load_dotenv()
 # Bot token - set this in your environment
@@ -15,15 +15,40 @@ WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 
 # Global bot application
 bot_app = None
+last_message_id = None
+
+
+def get_whitelist():
+    with open("white_list_user.json", "r") as f:
+        white_user = json.load(f)
+    return white_user["white_list_user"]
+
+
+whitelist = get_whitelist()
 
 
 # Bot handlers
-async def start(update: Update, context, message):
-    await update.message.reply_text("Hello! I'm a  bot with FastAPI.")
+async def start(update: Update, context):
+    if update.message.from_user.id not in whitelist:
+        await update.message.reply_text(
+            "Sorry, you are not authorized to use this bot. All your responses will be garbaged."
+        )
+        return
+    await update.message.reply_text("Welcome to the fantasy world!")
 
 
 async def echo(update: Update, context):
-    print(update.message.chat_id)
+    global last_message_id
+    if update.message.message_id == last_message_id:
+        print("Duplicate message detected; ignoring.")
+        return
+    last_message_id = update.message.message_id
+    ## We should never process message which already have been processed.
+    if update.message.from_user.id not in whitelist:
+        await update.message.reply_text(
+            "Sorry, you are not authorized to use this bot. All your responses will be garbaged."
+        )
+        return
     response = graph.invoke(
         {"messages": [{"role": "user", "content": update.message.text}]},
         config={"configurable": {"thread_id": update.message.chat_id}},
